@@ -161,11 +161,11 @@ def check(market: str):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument('--base')
-    parser.add_argument('--quote')
-    parser.add_argument('--skip')
-    parser.add_argument('--ex')
-    parser.add_argument('--nrl', dest='nrl', action='store_true', help="disable rate limit")
+    parser.add_argument('--base', help='base token f.e. LTC')
+    parser.add_argument('--quote', help='quote token f.e. BTC')
+    parser.add_argument('--skip', help='comma separated exchange list to skip')
+    parser.add_argument('--ex', help='comma separated exchange list to use')
+    parser.add_argument('--nrl', dest='nrl', action='store_true', help='disable rate limit')
     args = parser.parse_args()
     init_exchanges()
     narrow_markets()
