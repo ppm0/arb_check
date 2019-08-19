@@ -111,7 +111,12 @@ def check(market: str):
         print('no {} exchanges'.format(market))
         return
 
-    print('market {} start quering {} exchanges:{}'.format(market, len(eob_threads), ''.join(s.exchange.id + ',' for s in eob_threads)))
+    if len(eob_threads) == 1:
+        print('market {} skip only 1 exchange:{}'.format(market, eob_threads[0].exchange.id))
+        return
+
+    print('market {} start quering {} exchanges:{}'.format(market, len(eob_threads),
+                                                           ''.join(s.exchange.id + ',' for s in eob_threads)))
     t0 = time.time()
     for thread in eob_threads:
         thread.start()
@@ -152,9 +157,12 @@ def check(market: str):
 
     if max_bid and min_ask and max_bid > min_ask:
         print(
-            'best {} bid:{}@{:012.8f} ask:{}@{:012.8f} {:012.8f}'.format(market, max_bid_ex.id, max_bid, min_ask_ex.id,
-                                                                         min_ask,
-                                                                         max_bid - min_ask))
+            'best {} ask:{}@{:012.8f} bid:{}@{:012.8f}  {:012.8f}'.format(market,
+                                                                          min_ask_ex.id,
+                                                                          min_ask,
+                                                                          max_bid_ex.id,
+                                                                          max_bid,
+                                                                          max_bid - min_ask))
     else:
         print('without opportunity')
 
