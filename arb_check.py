@@ -65,7 +65,7 @@ def init_exchanges():
     for thread in ei_threads:
         thread.start()
 
-    while any(thread.isAlive() for thread in ei_threads):
+    while any(thread.is_alive() for thread in ei_threads):
         time.sleep(0.1)
 
     t1 = time.time() - t0
@@ -121,7 +121,7 @@ def check(market: str):
     for thread in eob_threads:
         thread.start()
 
-    while any(thread.isAlive() for thread in eob_threads):
+    while any(thread.is_alive() for thread in eob_threads):
         time.sleep(0.1)
 
     t1 = time.time() - t0
