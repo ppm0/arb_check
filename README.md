@@ -1,21 +1,18 @@
-# arb_check.py
+# arb_check - crypto arbitrage checker
 
 Simple python script, based on ccxt, for checking current arbitrage opportunity
 
 ## Getting Started
-
-Enjoy
-
-### Prerequisites
+#### Prerequisites
 Python 3.8+, Pipenv
 
 #### Install dependency && activate shell
-```
+```bash
 pipenv install && pipenv shell
 ```
 
-### Use
-```
+## Use
+```bash
 python arb_check.py --help
 usage: arb_check.py [-h] [--base BASE] [--quote QUOTE] [--skip SKIP] [--ex EX]
                     [--nrl]
@@ -29,7 +26,20 @@ optional arguments:
   --nrl          disable rate limit (ccxt library has built in requests limiter to be kind and avoid banning) 
 ```
 
-#### Example
+### Examples
+query bitbay, bitfinex, binance about LTC/BTC:
 ```bash
-python arb_check.py --base=XRP --quote=BTC --ex=bitbay,bitfinex,binance
+python arb_check.py --base=LTC --quote=BTC --ex=bitbay,bitfinex,binance
+```
+query all about ETH/BTC:
+```bash
+python arb_check.py --base=ETH --quote=BTC
+```
+query all about all pair with NEO
+```bash
+python arb_check.py --base=NEO
+```
+query bitfinex,binance about all pairs
+```bash
+python arb_check.py --ex=bitfinex,binance
 ```
