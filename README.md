@@ -7,13 +7,14 @@ Simple python script, based on ccxt, for checking current arbitrage opportunity
 Enjoy
 
 ### Prerequisites
-Python 3.7+
+Python 3.8+, Pipenv
+
+#### Install dependency && activate shell
 ```
-pip install -r requirements.txt
+pipenv install && pipenv shell
 ```
 
 ### Use
-
 ```
 python arb_check.py --help
 usage: arb_check.py [-h] [--base BASE] [--quote QUOTE] [--skip SKIP] [--ex EX]
@@ -25,9 +26,10 @@ optional arguments:
   --quote QUOTE  quote token f.e. BTC
   --skip SKIP    comma separated exchange list to skip
   --ex EX        comma separated exchange list to use
-  --nrl          disable rate limit
+  --nrl          disable rate limit (ccxt library has built in requests limiter to be kind and avoid banning) 
 ```
-Example:
+
+#### Example
 ```bash
 python arb_check.py --base=XRP --quote=BTC --ex=bitbay,bitfinex,binance
 ```
