@@ -4,14 +4,6 @@ from threading import Thread, Lock
 
 import ccxt
 
-# checked_currencies = {'BTC', 'LTC', 'NEO', 'ETH',ą 'ETC', 'CLO', 'XVG', 'NMC', 'PPC', 'LSK', 'XRB', 'WAVES', 'EOS',
-#                       'ADA', 'XLM', 'IOTA', 'XMR', 'NEM', 'DASH', 'TRX', 'BTM'}
-
-fiat_token = {'PLN', 'USD', 'RUB', 'EUR', 'BRL', 'CNY', 'USDT', 'EURT', 'JPY'}
-skiped_token = fiat_token
-# checked_Atoken = {'BTC'}
-# fucked_up = {'braziliex', 'bxinth', 'ice3x', 'yunbi', 'okcoinusd', 'huobicny', 'coolcoin', 'bitfinex', 'allcoin',
-#              'cointiger', 'coingi', 'lbank'}
 fucked_up = {'wex'}
 
 exchanges = {}
