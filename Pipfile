@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-ccxt = ">=1.19.44"
+ccxt = "==1.36.51"
 web3 = ">=4.8.2"
 
 [requires]
