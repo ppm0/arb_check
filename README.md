@@ -14,7 +14,7 @@ pipenv install && pipenv shell
 ## Use
 ```bash
 python arb_check.py --help
-usage: arb_check.py [-h] [--base BASE] [--quote QUOTE] [--skip SKIP] [--ex EX]
+usage: arb_check.py [-h] [--base BASE] [--quote QUOTE] [--skip SKIP] [--ex EX] [--quiet]
                     [--nrl]
 
 optional arguments:
@@ -23,7 +23,8 @@ optional arguments:
   --quote QUOTE  quote token f.e. BTC
   --skip SKIP    comma separated exchange list to skip
   --ex EX        comma separated exchange list to use
-  --nrl          disable rate limit (ccxt library has built in requests limiter to be kind and avoid banning) 
+  --nrl          disable rate limit (ccxt library has built in requests limiter to be kind and avoid banning)
+  --quiet        less descriptive mode 
 ```
 
 ### Examples

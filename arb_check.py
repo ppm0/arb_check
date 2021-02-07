@@ -52,7 +52,8 @@ def init_exchanges():
         if es not in fucked_up and es not in skipped_exchanges and (len(only_exchanges) == 0 or es in only_exchanges):
             exchange_class = getattr(ccxt, es)
             ei_threads.append(ExchangeInitThread(exchange_class))
-    print('ei start')
+    if not args.quiet:
+        print('exchange init - start')
     t0 = time.time()
     for thread in ei_threads:
         thread.start()
@@ -61,7 +62,8 @@ def init_exchanges():
         time.sleep(0.1)
 
     t1 = time.time() - t0
-    print('ei time:{:.3f}s'.format(t1))
+    if not args.quiet:
+        print('exchange init - elapsed:{:.3f}s'.format(t1))
 
 
 markets = set()
@@ -100,14 +102,15 @@ def check(market: str):
             eob_threads.append(ExchangeOrderBookThread(thread.exchange, market))
 
     if len(eob_threads) == 0:
-        print('no {} exchanges'.format(market))
+        print('market {} no exchanges'.format(market))
         return
 
-    if len(eob_threads) == 1:
+    if len(eob_threads) == 1 and not args.quiet:
         print('market {} skip only 1 exchange:{}'.format(market, eob_threads[0].exchange.id))
         return
 
-    print('market {} start quering {} exchanges:{}'.format(market, len(eob_threads),
+    if not args.quiet:
+        print('market {} start quering {} exchanges:{}'.format(market, len(eob_threads),
                                                            ''.join(s.exchange.id + ',' for s in eob_threads)))
     t0 = time.time()
     for thread in eob_threads:
@@ -117,7 +120,8 @@ def check(market: str):
         time.sleep(0.1)
 
     t1 = time.time() - t0
-    print('eob time:{:.3f}s'.format(time.time() - t0))
+    if not args.quiet:
+        print('market {} elapsed:{:.3f}s'.format(market, time.time() - t0))
 
     min_ask = None
     max_bid = None
@@ -149,14 +153,15 @@ def check(market: str):
 
     if max_bid and min_ask and max_bid > min_ask:
         print(
-            'best {} ask:{}@{:012.8f} bid:{}@{:012.8f}  {:012.8f}'.format(market,
+            'market {} best ask:{}@{:012.8f} bid:{}@{:012.8f}  {:012.8f}'.format(market,
                                                                           min_ask_ex.id,
                                                                           min_ask,
                                                                           max_bid_ex.id,
                                                                           max_bid,
                                                                           max_bid - min_ask))
     else:
-        print('without opportunity')
+        if not args.quiet:
+            print('market {} without opportunity'.format(market))
 
 
 if __name__ == '__main__':
@@ -166,9 +171,11 @@ if __name__ == '__main__':
     parser.add_argument('--skip', help='comma separated exchange list to skip')
     parser.add_argument('--ex', help='comma separated exchange list to use')
     parser.add_argument('--nrl', dest='nrl', action='store_true', help='disable rate limit')
+    parser.add_argument('--quiet', action='store_true', help='less descriptive mode ')
     args = parser.parse_args()
     init_exchanges()
     narrow_markets()
     for market in markets:
         check(market)
-        print('')
+        if not args.quiet:
+            print('')
